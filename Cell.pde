@@ -39,18 +39,16 @@ class Cell {
           }
         }
         neighbors -= board[x][y];
-        /*
-        if      ((board[x][y] == 0) && (water >= 4)) next[x][y] = 2;
-         else if ((board[x][y] == 1) && (water >= 6)) next[x][y] = 2;
-         else if ((board[x][y] == 2) && (water <= 1)) next[x][y] = 0; */
-
+        //Rules:
+        //Grass
         if      ((board[x][y] > 0) && (neighbors <  2) && (board[x][y] < 3)) next[x][y] = 0;
         else if ((board[x][y] > 0) && (neighbors >  3) && (board[x][y] < 3)) next[x][y] = 1;
         else if ((board[x][y] == 0) && (neighbors == 3) && (board[x][y] < 3)) next[x][y] = int(random(1, 3));
+        
+        //Water
         else if ((board[x][y] > 0) && (water <  2)) next[x][y] = 0;
         else if ((board[x][y] > 0) && (water >  3)) next[x][y] = 3;
         else if ((board[x][y] == 0) && (water == 3)) next[x][y] = int(random(3, 5));
-        //else next[x][y] = board[x][y];
       }
     }
     board = next;
@@ -58,11 +56,11 @@ class Cell {
 
   void tegn() {
     for (int i = 0; i < columns; i++) {
-      for (int j = 0; j < columns; j++) {
+      for (int j = 0; j < rows; j++) {
         if (board[i][j] == 1) {
           fill(0, 255, 0);
         } else if (board[i][j] == 2) {
-          fill(100, 255, 200);
+          fill(100, 255, 150);
         } else if (board[i][j] == 3) {
           fill(0, 0, 255);
         } else if (board[i][j] == 4) {
