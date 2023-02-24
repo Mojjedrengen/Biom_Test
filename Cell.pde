@@ -13,9 +13,9 @@ class Cell {
     for (int x = 0; x < columns; x++) {
       for (int y = 0; y < rows; y++) {
         int temp = int(random(100));
-        if (temp < 5) {
-          board[x][y] = 2;
-        } else if (temp > 70) {
+        if (temp < 20) {
+          board[x][y] = 3;
+        } else if (temp > 75) {
           board[x][y] = 1;
         } else {
           board[x][y] = 0;
@@ -33,20 +33,24 @@ class Cell {
         for (int i = -1; i <= 1; i++) {
           for (int j = -1; j <= 1; j++) {
             neighbors += board[x+i][y+j];
-            if (board[x+i][y+j] == 2) {
+            if (board[x+i][y+j] == 3 || board[x+i][y+j] == 4) {
               water++;
             }
           }
         }
         neighbors -= board[x][y];
-        
+        /*
         if      ((board[x][y] == 0) && (water >= 4)) next[x][y] = 2;
-        else if ((board[x][y] == 1) && (water >= 6)) next[x][y] = 2;
-        else if ((board[x][y] == 2) && (water <= 1)) next[x][y] = 0;
-        else if ((board[x][y] == 1) && (neighbors <  2)) next[x][y] = 0;
-        else if ((board[x][y] == 1) && (neighbors >  3)) next[x][y] = 0;
-        else if ((board[x][y] == 0) && (neighbors == 3)) next[x][y] = 1;
-        else next[x][y] = board[x][y];
+         else if ((board[x][y] == 1) && (water >= 6)) next[x][y] = 2;
+         else if ((board[x][y] == 2) && (water <= 1)) next[x][y] = 0; */
+
+        if      ((board[x][y] > 0) && (neighbors <  2) && (board[x][y] < 3)) next[x][y] = 0;
+        else if ((board[x][y] > 0) && (neighbors >  3) && (board[x][y] < 3)) next[x][y] = 1;
+        else if ((board[x][y] == 0) && (neighbors == 3) && (board[x][y] < 3)) next[x][y] = int(random(1, 3));
+        else if ((board[x][y] > 0) && (water <  2)) next[x][y] = 0;
+        else if ((board[x][y] > 0) && (water >  3)) next[x][y] = 3;
+        else if ((board[x][y] == 0) && (water == 3)) next[x][y] = int(random(3, 5));
+        //else next[x][y] = board[x][y];
       }
     }
     board = next;
@@ -58,9 +62,13 @@ class Cell {
         if (board[i][j] == 1) {
           fill(0, 255, 0);
         } else if (board[i][j] == 2) {
+          fill(100, 255, 200);
+        } else if (board[i][j] == 3) {
           fill(0, 0, 255);
+        } else if (board[i][j] == 4) {
+          fill(100, 200, 255);
         } else {
-          fill(0);
+          fill(155, 118, 83);
         }
         stroke(0);
 
