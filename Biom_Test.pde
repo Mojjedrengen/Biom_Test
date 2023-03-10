@@ -2,6 +2,7 @@ Cell biom;
 int time = 0;
 int timer;
 int counter = 1000;
+int preloadtime = 20000;
 
 void setup() {
   //size(1250, 1000);
@@ -11,7 +12,7 @@ void setup() {
 
 void draw() {
   biom.tegn();
-  if (millis()/1000 < 20) {
+  if (millis() < preloadtime) {
     biom.generate();
   } else if (millis()-timer > counter) {
     biom.generate();
@@ -25,6 +26,7 @@ void draw() {
 void mousePressed() {
   biom = new Cell();
   time = millis();
+  preloadtime += millis();
 }
 
 void timer() { 
