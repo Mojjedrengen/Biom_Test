@@ -54,7 +54,7 @@ class Cell {
         else if ((board[x][y] == 0) && (water == 3)) next[x][y] = int(random(3, 5));
       }
     }
-    board = next; //makes the temperari bord the real bord
+    board = next; //makes the temporary bord the real bord
   }
 
   void tegn() { //this could also be called display
